@@ -1,13 +1,35 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
 
 import ProductList from "./ProductList";
 import CartItem from "./CartItem";
 import AboutUs from "./AboutUs";
 
-function App() {
-  const [page, setPage] = useState("home");
+function Home() {
+  return (
+    <section className="hero-section">
+      <div className="hero-content">
+        <h1>Paradise Nursery</h1>
 
+        <h2>Bring Nature Into Your Home</h2>
+
+        <p>
+          Discover beautiful houseplants for every room
+          and every plant lover.
+        </p>
+
+        <Link
+          to="/plants"
+          className="get-started-btn"
+        >
+          Get Started
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function App() {
   return (
     <div className="app">
 
@@ -17,53 +39,19 @@ function App() {
         </div>
 
         <div className="nav-links">
-          <button onClick={() => setPage("home")}>
-            Home
-          </button>
-
-          <button onClick={() => setPage("plants")}>
-            Plants
-          </button>
-
-          <button onClick={() => setPage("about")}>
-            About Us
-          </button>
-
-          <Link to="/cart">
-            Cart
-          </Link>
+          <Link to="/">Home</Link>
+          <Link to="/plants">Plants</Link>
+          <Link to="/about">About Us</Link>
+          <Link to="/cart">🛒 Cart</Link>
         </div>
       </nav>
 
-      {page === "home" && (
-        <section className="hero-section">
-
-          <div className="hero-content">
-            <h1>Paradise Nursery</h1>
-
-            <h2>
-              Bring Nature Into Your Home
-            </h2>
-
-            <p>
-              Discover beautiful houseplants for every room
-              and every plant lover.
-            </p>
-
-            <button
-              className="get-started-btn"
-              onClick={() => setPage("plants")}
-            >
-              Get Started
-            </button>
-          </div>
-
-        </section>
-      )}
-
-      {page === "plants" && <ProductList />}
-
-      {page === "about" && <AboutUs />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/plants" element={<ProductList />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/cart" element={<CartItem />} />
+      </Routes>
 
     </div>
   );
